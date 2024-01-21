@@ -3,7 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const username = queryParams.get('username');
 
     if(!username){
+        const container = document.getElementById('profile-container');
         console.error('GitHub username not provided.');
+        const invalidUserName = document.createElement('h1');
+        invalidUserName.classList.add('secondary-text');
+        invalidUserName.innerHTML = "Please provide a UserName; No Username provided.";
+        container.appendChild(invalidUserName);
     }
     else{
         const profileApiUrl = `https://api.github.com/users/${username}`;
