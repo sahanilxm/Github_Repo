@@ -62,8 +62,6 @@ body{
 
 
 .repo{
-    max-height: 30rem;
-    overflow: hidden;
     border: 0.2rem solid var(--secondary-color);
     border-radius: 0.5rem;
 }
@@ -94,6 +92,10 @@ body{
     height: 50px;
     animation: spin 1s linear infinite;
     margin: 20px auto;
+    display: none;
+}
+
+#search-container{
     display: none;
 }
 

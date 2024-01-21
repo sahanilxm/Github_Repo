@@ -17,6 +17,11 @@
     <div class="" style="height: 100vh; padding-top: 5rem;">
         <div id="profile-loader" class="loader"></div>
         <div id="profile-container" class="px-4 text-center"></div>
+        <div class="text-center mt-4 mb-4" id="search-container">
+            <label for="search" class="fs-3 secondary-text">Search Repositories:</label>
+            <input type="text" id="search" placeholder="Enter keyword" class="ml-2 primary-input">
+            <button onclick="searchRepositories()" class="primary-btn ml-2">Search</button>
+        </div>
         <div id="repositories-loader" class="loader"></div>
         <div id="repositories-container" class="d-flex flex-wrap mx-auto justify-content-around px-4"></div>
         <div id="pagination-container" class="text-center mb-2"></div>

@@ -12,13 +12,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     else{
         const profileApiUrl = `https://api.github.com/users/${username}`;
-        const apiUrl = `https://api.github.com/users/${username}/repos`;
+        // const apiUrl = `https://api.github.com/users/${username}/repos`;
+        const apiUrl = `https://api.github.com/search/repositories`;
+
 
         const defaultPerPage = 10;
         const maxPerPage = 100;
         let currentPage = 1;
         let perPage = defaultPerPage;
+        let totalPublicRepositories = 0;
         let totalRepositories = 0;
+        let searchKeyword = '';
+
 
         fetchProfile(profileApiUrl);
 
@@ -36,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 return response.json().then( profile => {
-                    totalRepositories = parseInt(profile.public_repos, 10);
+                    totalPublicRepositories = parseInt(profile?.public_repos, 10);
                     displayProfile(profile);
                     fetchRepositories(apiUrl, currentPage, perPage);
                     });
@@ -64,22 +69,28 @@ document.addEventListener('DOMContentLoaded', function () {
             container.append(userBio);
 
             const publicRepos = document.createElement('p');
-            publicRepos.innerHTML = `Total Public Repositories: ${totalRepositories}`;
+            publicRepos.innerHTML = `Total Public Repositories: ${totalPublicRepositories}`;
             container.append(publicRepos);
 
         }
 
-        function fetchRepositories(url, page, perPage){
-            document.getElementById('repositories-loader').style.display = 'block';
+        function fetchRepositories(url, page, perPage, searchKeyword = ""){
 
-            fetch(`${url}?page=${page}&per_page=${Math.min(perPage, maxPerPage)}`)
+            document.getElementById('repositories-loader').style.display = 'block';
+            document.getElementById('search-container').style.display = 'none';
+
+            let searchParams = `?q=${searchKeyword ? searchKeyword : ""}+user:${username}&page=${page}&per_page=${Math.min(perPage, maxPerPage)}`;
+
+            fetch(`${url}${searchParams}`)
                 .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
+                
 
                 return response.json().then(repositories => {
-                    displayRepositories(repositories);
+                    displayRepositories(repositories.items);
+                    totalRepositories = parseInt(repositories?.total_count, 10);
                     displayPagination(totalRepositories);
                 });
                 })
@@ -88,7 +99,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .finally(() => {
                     document.getElementById('repositories-loader').style.display = 'none';
+                    document.getElementById('search-container').style.display = 'block';
             });
+        }
+
+        window.searchRepositories = function () {
+            searchKeyword = document.getElementById('search').value.trim();
+            // document.getElementById('search').value = "";
+            currentPage = 1;
+            fetchRepositories(apiUrl, currentPage, perPage, searchKeyword);
         }
 
         function displayRepositories(repositories){
@@ -132,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function displayPagination(totalRepositories) {
             const totalPages = Math.ceil(totalRepositories / Math.min(perPage, maxPerPage));
-            console.log(totalRepositories, totalPages);
             const paginationContainer = document.getElementById('pagination-container');
             paginationContainer.innerHTML = '';
 
