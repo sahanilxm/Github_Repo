@@ -40,7 +40,14 @@ body{
     margin-top: 1rem;
     border-color: var(--secondary-color);
     border-radius: 0.5rem;
+    
 }
+
+.primary-btn:enabled:hover{
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+}
+
 
 .secondary-btn{
     font-family: var(--primary-font);
@@ -66,10 +73,6 @@ body{
     border-radius: 0.5rem;
 }
 
-.primary-btn:hover{
-    color: #ffddb0;
-}
-
 .nav{
     background: linear-gradient(to right, #ffddb0, #fff2df);
     border: none;
@@ -77,6 +80,7 @@ body{
 
 .logo{
     text-decoration-line: none;
+    font-size: 2rem;
     border: none;
 }
 

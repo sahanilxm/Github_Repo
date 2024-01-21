@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                
 
                 return response.json().then(repositories => {
                     displayRepositories(repositories.items);
@@ -139,18 +138,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 repositories?.forEach(repo => {
                     const repository = document.createElement('div');
                     repository.classList.add('w-25', 'm-2', 'p-2', 'repo');
+
                     const repositoryName = document.createElement('strong');
                     repositoryName.classList.add('primary-text', 'text-decoration-underline');
                     repositoryName.innerHTML = `${repo.name}`;
+
                     const repositoryDescription = document.createElement('p');
                     repositoryDescription.classList.add('helper-text', 'mt-4');
                     repositoryDescription.innerHTML = `${repo.description || 'No description'}`;
 
                     const repositoryTopics = document.createElement('div');
                     repositoryTopics.classList.add('d-flex', 'flex-wrap');
+
                     const repositoryTopicsList = repo.topics;
                     repositoryTopicsList?.map((topic) => {
                         const repositoryTopic = document.createElement('button');
+                        repositoryTopic.disabled = true;
                         repositoryTopic.classList.add('m-1', 'secondary-btn');
                         repositoryTopic.innerHTML = topic;
                         repositoryTopics.appendChild(repositoryTopic);
@@ -172,6 +175,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const prevButton = document.createElement('button');
             prevButton.innerText = 'Previous';
             prevButton.classList.add('my-4', 'mx-2', 'primary-btn');
+            if(currentPage == 1){
+                prevButton.disabled = true;
+            }
+            else{
+                prevButton.disabled = false;
+            }
             prevButton.addEventListener('click', function () {
                 if (currentPage > 1) {
                     currentPage--;
@@ -188,8 +197,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const nextButton = document.createElement('button');
             nextButton.innerText = 'Next';
             nextButton.classList.add('my-4', 'mx-2', 'primary-btn');
+            if(currentPage == totalPages){
+                nextButton.disabled = true;
+            }
+            else{
+                nextButton.disabled = false;
+            }
             nextButton.addEventListener('click', function () {
-                console.log('Next Button Clicked');
                 if (currentPage < totalPages) {
                     currentPage++;
                     fetchRepositories(apiUrl, currentPage, perPage);
