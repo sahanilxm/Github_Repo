@@ -1,0 +1,88 @@
+:root{
+    --primary-color : #FE7A36;
+    --secondary-color : #191D88;
+
+    --primary-font : 'Acme', sans-serif;
+    --secondary-font : 'Kosugi Maru', sans-serif;
+    --helper-font :  'Changa', sans-serif;
+}
+
+
+body{
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(to right, #ffddb0, #fff2df);
+}
+
+.primary-text{
+    font-family: var(--primary-font);
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.secondary-text{
+    font-family: var(--secondary-font);
+    color: var(--secondary-color);
+}
+
+.helper-text{
+    font-family: var(--helper-font);
+    color: var(--secondary-color);
+    font-weight: bolder;
+}
+
+.primary-btn{
+    font-family: var(--primary-font);
+    color: white;
+    background-color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    font-size: large;
+    margin-top: 1rem;
+    border-color: var(--secondary-color);
+    border-radius: 0.5rem;
+}
+
+.secondary-btn{
+    font-family: var(--primary-font);
+    color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    font-size: large;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    border-color: var(--secondary-color);
+}
+
+.primary-input{
+    font-family: var(--primary-font);
+    font-size: 1.5rem;
+    text-align: center;
+    border: 0.2rem solid var(--secondary-color);
+    border-radius: 0.5rem;
+}
+
+
+.repo{
+    max-height: 30rem;
+    overflow: hidden;
+    border: 0.2rem solid var(--secondary-color);
+    border-radius: 0.5rem;
+}
+
+.primary-btn:hover{
+    color: #ffddb0;
+}
+
+.nav{
+    background: linear-gradient(to right, #ffddb0, #fff2df);
+    border: none;
+}
+
+.logo{
+    text-decoration-line: none;
+    border: none;
+}
+
+.logo:hover{
+    color: var(--primary-color);
+}
+
