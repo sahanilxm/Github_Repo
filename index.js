@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
             perPageSelect.addEventListener('change', function (event) {
                 perPage = parseInt(event.target.value, 10);
                 currentPage = 1; 
-                fetchRepositories(apiUrl, currentPage, perPage);
+                fetchRepositories(apiUrl, currentPage, perPage, searchKeyword);
             });
             perPageSelect.classList.add('my-4', 'mx-2', 'secondary-btn');
             paginationContainer.appendChild(perPageSelect);
