@@ -20,3 +20,9 @@ How To Use: -
 
 - Users can simply enter the GitHub username in the search bar to initiate the search.
 - The application will display the results, including repositories and relevant user information.
+
+Image Previews: -
+
+![alt text](https://drive.google.com/file/d/1peTTksMVEXwVw3UhqijeSDUfnxe-OTIu/view)
+![alt text](https://drive.google.com/file/d/1Eh3Zb1a4Jk6EqZ-Mb-e7eWVAzGUDS2pV/view)
+![alt text](https://drive.google.com/file/d/1Eh3Zb1a4Jk6EqZ-Mb-e7eWVAzGUDS2pV/view)
