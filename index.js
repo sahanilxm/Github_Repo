@@ -27,13 +27,31 @@ document.addEventListener('DOMContentLoaded', function () {
             return response.json().then( profile => {
                 totalRepositories = parseInt(profile.public_repos, 10);
                 console.log(totalRepositories);
-
+                displayProfile(profile);
                 fetchRepositories(apiUrl, currentPage, perPage);
                 });
             })
             .catch(error => {
             console.error('Error fetching total repositories count:', error);
             });
+        }
+
+        function displayProfile(profile){
+            const container = document.getElementById('profile-container');
+            container.innerHTML = '';
+
+            const userName = document.createElement('h3');
+            userName.innerHTML = profile?.name;
+            container.append(userName);
+
+            const userBio = document.createElement('p');
+            userBio.innerHTML = profile?.bio;
+            container.append(userBio);
+
+            const publicRepos = document.createElement('p');
+            publicRepos.innerHTML = `Total Public Repositories: ${totalRepositories}`;
+            container.append(publicRepos);
+
         }
 
         function fetchRepositories(url, page, perPage){
@@ -81,8 +99,8 @@ document.addEventListener('DOMContentLoaded', function () {
             prevButton.innerText = 'Previous';
             prevButton.addEventListener('click', function () {
                 if (currentPage > 1) {
-                currentPage--;
-                fetchRepositories(apiUrl, currentPage, perPage);
+                    currentPage--;
+                    fetchRepositories(apiUrl, currentPage, perPage);
                 }
             });
             paginationContainer.appendChild(prevButton);
@@ -96,8 +114,8 @@ document.addEventListener('DOMContentLoaded', function () {
             nextButton.addEventListener('click', function () {
                 console.log('Next Button Clicked');
                 if (currentPage < totalPages) {
-                currentPage++;
-                fetchRepositories(apiUrl, currentPage, perPage);
+                    currentPage++;
+                    fetchRepositories(apiUrl, currentPage, perPage);
                 }
             });
             paginationContainer.appendChild(nextButton);
