@@ -108,7 +108,36 @@ body{
     100% { transform: rotate(360deg); }
 }
 
+#profile-container{
+    display: flex;
+}
+
+#repositories-container{
+    display: flex;
+}
+
+.repository{
+    width: 25%;
+}
+
 .profile-img{
     border-radius: 100%;
     width: 12rem;
+}
+
+
+@media screen and (max-width: 900px){
+    .repository{
+        width: 45%;
+    }
+}
+
+@media screen and (max-width : 500px){
+    #profile-container{
+        display: block;
+        font-size: medium;
+    }
+    .repository{
+        width: 100%;
+    }
 }

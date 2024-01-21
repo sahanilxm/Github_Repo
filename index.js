@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }else{
                 repositories?.forEach(repo => {
                     const repository = document.createElement('div');
-                    repository.classList.add('w-25', 'm-2', 'p-2', 'repo');
+                    repository.classList.add('repository','m-2', 'p-2', 'repo');
 
                     const repositoryName = document.createElement('strong');
                     repositoryName.classList.add('primary-text', 'text-decoration-underline');
