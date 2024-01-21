@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     else{
         const profileApiUrl = `https://api.github.com/users/${username}`;
-        // const apiUrl = `https://api.github.com/users/${username}/repos`;
         const apiUrl = `https://api.github.com/search/repositories`;
 
 
@@ -57,20 +56,37 @@ document.addEventListener('DOMContentLoaded', function () {
         function displayProfile(profile){
             const container = document.getElementById('profile-container');
             container.innerHTML = '';
-            container.classList.add('secondary-text');
+            
+            const profileDiv1 = document.createElement('div');
+            const profileDiv2 = document.createElement('div');
+            profileDiv2.classList.add('secondary-text', 'm-4');
+            
+            const userImage = document.createElement('img');
+            userImage.classList.add('profile-img');
+            userImage.setAttribute('src', profile?.avatar_url);
+            profileDiv1.appendChild(userImage);
 
             const userName = document.createElement('h3');
             userName.classList.add('fw-bold', 'text-decoration-underline', 'primary-text')
             userName.innerHTML = profile?.name || profile?.login;
-            container.append(userName);
+            profileDiv2.append(userName);
 
             const userBio = document.createElement('p');
             userBio.innerHTML = profile?.bio;
-            container.append(userBio);
+            profileDiv2.append(userBio);
 
-            const publicRepos = document.createElement('p');
-            publicRepos.innerHTML = `Total Public Repositories: ${totalPublicRepositories}`;
-            container.append(publicRepos);
+            const totalPublicRepos = document.createElement('p');
+            totalPublicRepos.innerHTML = `Total Public Repositories: ${totalPublicRepositories}`;
+            profileDiv2.append(totalPublicRepos);
+
+            const githubUrl = document.createElement('a');
+            githubUrl.innerHTML = "Github Link";
+            githubUrl.classList.add('fs-4')
+            githubUrl.setAttribute('href', profile?.html_url);
+            profileDiv2.appendChild(githubUrl);
+
+            container.appendChild(profileDiv1);
+            container.appendChild(profileDiv2);
 
         }
 
@@ -105,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         window.searchRepositories = function () {
             searchKeyword = document.getElementById('search').value.trim();
-            // document.getElementById('search').value = "";
             currentPage = 1;
             fetchRepositories(apiUrl, currentPage, perPage, searchKeyword);
         }
