@@ -18,10 +18,15 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchProfile(profileApiUrl);
 
         function fetchProfile(profileApiUrl){
+            const container = document.getElementById('profile-container');
             document.getElementById('profile-loader').style.display = 'block';
             fetch(profileApiUrl)
                 .then(response => {
                 if(!response.ok){
+                    const noUser = document.createElement('h1');
+                    noUser.classList.add('secondary-text');
+                    noUser.innerHTML = "No such User present with provided user name.";
+                    container.append(noUser);
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
@@ -86,7 +91,11 @@ document.addEventListener('DOMContentLoaded', function () {
             container.innerHTML = '';
 
             if(repositories.length === 0){
-                container.innerHTML = '<p>No repositories found.</p>';
+                const noRepository = document.createElement('h1');
+                noRepository.classList.add('secondary-text');
+                noRepository.innerHTML = "No repositories found.";
+                container.append(noRepository);
+                paginationContainer.style.display = 'none';
             }else{
                 repositories?.forEach(repo => {
                     const repository = document.createElement('div');
