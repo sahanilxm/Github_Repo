@@ -24,5 +24,5 @@ How To Use: -
 Image Previews: -
 
 ![image1](./assets/Screenshot%20(396).png)
-![image2](./assets/Screenshot%20(396).png)
-![image3](./assets/Screenshot%20(396).png)
+![image2](./assets/Screenshot%20(397).png)
+![image3](./assets/Screenshot%20(398).png)
