@@ -18,20 +18,24 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchProfile(profileApiUrl);
 
         function fetchProfile(profileApiUrl){
-        fetch(profileApiUrl)
-            .then(response => {
-            if(!response.ok){
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            document.getElementById('profile-loader').style.display = 'block';
+            fetch(profileApiUrl)
+                .then(response => {
+                if(!response.ok){
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
 
-            return response.json().then( profile => {
-                totalRepositories = parseInt(profile.public_repos, 10);
-                displayProfile(profile);
-                fetchRepositories(apiUrl, currentPage, perPage);
-                });
-            })
-            .catch(error => {
-            console.error('Error fetching total repositories count:', error);
+                return response.json().then( profile => {
+                    totalRepositories = parseInt(profile.public_repos, 10);
+                    displayProfile(profile);
+                    fetchRepositories(apiUrl, currentPage, perPage);
+                    });
+                })
+                .catch(error => {
+                console.error('Error fetching total repositories count:', error);
+                })
+                .finally(() => {
+                    document.getElementById('profile-loader').style.display = 'none';
             });
         }
 
@@ -56,20 +60,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         function fetchRepositories(url, page, perPage){
-        console.log(url, page, perPage);
-        fetch(`${url}?page=${page}&per_page=${Math.min(perPage, maxPerPage)}`)
-            .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
+            document.getElementById('repositories-loader').style.display = 'block';
 
-            return response.json().then(repositories => {
-                displayRepositories(repositories);
-                displayPagination(totalRepositories);
-            });
-            })
-            .catch(error => {
-            console.error('Error fetching repositories:', error);
+            fetch(`${url}?page=${page}&per_page=${Math.min(perPage, maxPerPage)}`)
+                .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                return response.json().then(repositories => {
+                    displayRepositories(repositories);
+                    displayPagination(totalRepositories);
+                });
+                })
+                .catch(error => {
+                console.error('Error fetching repositories:', error);
+                })
+                .finally(() => {
+                    document.getElementById('repositories-loader').style.display = 'none';
             });
         }
 
